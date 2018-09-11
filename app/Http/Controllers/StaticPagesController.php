@@ -20,6 +20,12 @@ class StaticPagesController extends Controller
 	public function about(){
 		return view('static_pages.about');
 	}
+
+	// 显示测试tt页面
+    public function tt()
+    {
+        return view('tt');
+    }
 	
 	
 }

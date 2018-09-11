@@ -1,11 +1,16 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-	<meta charset="utf-8">
-	<title>@yield('title','sample')</title>
-</head>
-<body>
-@yield('content')
+@include('layouts._head');
 
-</body>
-</html>
+<div class="container">
+    @yield('content','')
+</div>
+
+@include('layouts._foot');
+
+
+<!-- Main component for a primary marketing message or call to action -->
+
+
+
+
+
+

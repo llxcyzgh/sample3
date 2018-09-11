@@ -11,9 +11,13 @@
 |
 */
 
+Route::get('/tt','StaticPagesController@tt')->name('tt');
+
 Route::get('/','StaticPagesController@index')->name('home');
 Route::get('help','StaticPagesController@help')->name('help');
 Route::get('about','StaticPagesController@about')->name('about');
+
+Route::get('signup','UsersController@create')->name('signup');
 
 
 
