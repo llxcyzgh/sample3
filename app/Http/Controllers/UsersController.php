@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+//use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -41,7 +43,7 @@ class UsersController extends Controller
                 }
             ],
 //            'name'     => ['required', 'min:5', 'max:30', 'regex:/^[a-zA-Z_]+/'],
-            'email'    => 'required|email|unique:users',
+            'email'    => 'required|email|max:100|unique:users',
             'password' => 'required|min:6|max:30|confirmed',
         ]);
 
@@ -51,6 +53,7 @@ class UsersController extends Controller
             'password' => bcrypt($request->password),
         ]);
 
+        Auth::login($user);
         session()->flash('success', '注册成功');
         return redirect()->route('users.show', [$user]);
     }
