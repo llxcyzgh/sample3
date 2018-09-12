@@ -13,3 +13,20 @@ body {
   margin-top: 40px;
   border-top: 1px solid #eee !important;
 }
+
+/* _user_img 用户头像局部css */
+$img_size: 70px;// 头像尺寸
+.user-img {
+  width: $img_size;
+  height: $img_size;
+  margin: 0 auto;
+  color: #fff;
+  line-height: $img_size;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+/* user-index 页面用户名与头像水平方向上对齐 */
+.user-name{
+  line-height: $img_size;
+}

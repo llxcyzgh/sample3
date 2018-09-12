@@ -10,7 +10,7 @@
     <link rel="icon" href="https://a.photo/images/2018/09/11/favicon-jquery_.th.png">
     <title>sample - @yield('title','Sample App')</title>
     <!-- Bootstrap core CSS -->
-    <link href="css/app.css" rel="stylesheet">
+    <link href="/css/app.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     {{--<link href="css/view_default.css" rel="stylesheet">--}}
 </head>
@@ -27,7 +27,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Sample App</a>
+            <a class="navbar-brand" href="{{ route('home') }}">Sample App</a>
         </div>
         <div id="navbar" class=" navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -49,7 +49,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#">登陆</a></li>
-                <li><a href="#">注册</a></li>
+                <li><a href="{{ route('users.create') }}">注册</a></li>
             </ul>
         </div>
     </div>

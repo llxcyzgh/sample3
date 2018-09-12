@@ -9,7 +9,7 @@
                 <p>这是一个小型微博网站, 在这里, 您可以 blablabla...</p>
                 <p>blablabla...</p>
                 <p>
-                    <a class="btn btn-primary" href="{{ route('signup') }}" role="button">注册</a>
+                    <a class="btn btn-primary" href="{{ route('users.create') }}" role="button">注册</a>
                     <a class="btn btn-primary" href="#" role="button">登陆</a>
                 </p>
             </div>

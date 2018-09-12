@@ -8364,5 +8364,21 @@ body {
   border-top: 1px solid #eee !important;
 }
 
+/* _user_img 用户头像局部css */
 
+.user-img {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto;
+  color: #fff;
+  line-height: 70px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+/* user-index 页面用户名与头像水平方向上对齐 */
+
+.user-name {
+  line-height: 70px;
+}
 
