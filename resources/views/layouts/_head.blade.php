@@ -9,10 +9,12 @@
     <meta name="author" content="zhu">
     <link rel="icon" href="https://a.photo/images/2018/09/11/favicon-jquery_.th.png">
     <title>sample - @yield('title','Sample App')</title>
+    <script src="/js/app.js"></script>
     <!-- Bootstrap core CSS -->
     <link href="/css/app.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     {{--<link href="css/view_default.css" rel="stylesheet">--}}
+
 </head>
 
 <body>
@@ -56,8 +58,8 @@
                     <li>
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->name }}</a>
                         <ul class="dropdown-menu">
-                            <li><a href="">个人资料</a></li>
-                            <li><a href="">编辑资料</a></li>
+                            <li><a href="{{ route('users.show',Auth::user()) }}">个人资料</a></li>
+                            <li><a href="{{ route('users.edit',[Auth::user()]) }}">编辑资料</a></li>
                             <li class="divider"></li>
                             <li>
                                 {{--<form action="{{ route('logout',[Auth::user()->id]) }}" method="post">--}}
@@ -74,7 +76,7 @@
                     </li>
                 @else
                     {{--用户未登陆时--}}
-                    <li><a href="#">登陆</a></li>
+                    <li><a href="{{ route('login') }}">登陆</a></li>
                     <li><a href="{{ route('users.create') }}">注册</a></li>
                 @endif
             </ul>

@@ -59,9 +59,9 @@ class UsersController extends Controller
     }
 
     // 显示用户编辑页面
-    public function edit()
+    public function edit(User $user)
     {
-        return view('users.edit');
+        return view('users.edit',compact('user'));
     }
 
     // 执行用户编辑动作
