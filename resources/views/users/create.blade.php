@@ -11,6 +11,8 @@
                         {{-- 引入验证生成的错误信息 --}}
                         @include('layouts._errors')
 
+                        {{--禁止自动填充表单--}}
+                        <input type="password" style="display: none">
                         <div class="form-group">
                             <label for="name">用户名</label>
                             <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}">
@@ -18,12 +20,14 @@
 
                         <div class="form-group">
                             <label for="email">邮箱</label>
-                            <input type="email" name="email" id="email" class="form-control" value="{{ old('name') }}">
+                            <input type="email" name="email" id="email" class="form-control" value="{{ old('name') }}"
+                                   autocomplete="new-password" readonly="readonly">
                         </div>
 
                         <div class="form-group">
                             <label for="password">密码</label>
-                            <input type="password" name="password" id="password" class="form-control">
+                            <input type="password" name="password" id="password" class="form-control"
+                                   autocomplete="new-password" readonly="readonly">
                         </div>
 
                         <div class="form-group">
@@ -40,4 +44,22 @@
         </div>
     </div>
 
+
+    <script>
+        {{--禁止表单自动填充,先设为只读,之后用延时器自动删除该属性--}}
+        $(function () {
+            setTimeout(function () {
+                $('#email').removeAttr('readonly');
+                $('#password').removeAttr('readonly');
+            }, 1000);
+        });
+    </script>
 @endsection
+
+{{--<script>--}}
+    {{--禁止表单自动填充,先设为只读,之后自动删除该属性--}}
+    {{--window.setTimeout(function () {--}}
+        {{--document.getElementById("email").removeAttribute('readonly');--}}
+        {{--document.getElementById("password").removeAttribute('readonly');--}}
+    {{--}, 1000)--}}
+{{--</script>--}}

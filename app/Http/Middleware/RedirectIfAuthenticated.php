@@ -18,7 +18,9 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect('/home');
+//            return redirect('/home');
+            session()->flash('info','您已登陆,无需重复操作; 如若您要登陆其他账号,请先行退出当前账号~');
+            return redirect('/');
         }
 
         return $next($request);

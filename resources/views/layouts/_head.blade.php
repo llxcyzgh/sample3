@@ -10,6 +10,7 @@
     <link rel="icon" href="https://a.photo/images/2018/09/11/favicon-jquery_.th.png">
     <title>sample - @yield('title','Sample App')</title>
     <script src="/js/app.js"></script>
+
     <!-- Bootstrap core CSS -->
     <link href="/css/app.css" rel="stylesheet">
     <!-- Custom styles for this template -->

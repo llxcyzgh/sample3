@@ -8,6 +8,13 @@ use Illuminate\Support\Facades\Auth;
 
 class SessionsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('guest',[
+            'only'=>['create'],
+        ]);
+    }
+
     // 显示用户登陆界面
     public function create()
     {
@@ -27,7 +34,7 @@ class SessionsController extends Controller
 //        if (Auth::attempt($credentials, $request->has('remember_me'))) {
         if (Auth::attempt($credentials, $request->remember_me)) {
             session()->flash('success', '登陆成功');
-            return redirect()->route('users.show', [Auth::user()]);
+            return redirect()->intended(route('users.show', [Auth::user()]));
         } else {
             session()->flash('danger', '账号密码不匹配');
             return back();
