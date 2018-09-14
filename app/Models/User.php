@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Notifications\ResetPassword;
 use function foo\func;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -39,8 +40,6 @@ class User extends Authenticatable
         });
     }
 
-
-
     public function getImage()
     {
         // 0-9 ascii 48-57
@@ -73,5 +72,10 @@ class User extends Authenticatable
 </div>
 HEREDOC;
         return $img;
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPassword($token));
     }
 }

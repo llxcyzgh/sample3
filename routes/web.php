@@ -28,6 +28,12 @@ Route::get('login','SessionsController@create')->name('login');
 Route::post('login','SessionsController@store')->name('login');
 Route::delete('logout','SessionsController@destroy')->name('logout');
 
+// 关于密码重设部分
+Route::get('password/reset','Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');// 显示重设密码请求页面
+Route::post('password/email','Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');// 执行发送要重设密码的邮箱动作
+Route::get('password/reset/{token}','Auth\ResetPasswordController@showResetForm')->name('password.reset');// 显示重设密码页面
+Route::post('password/reset','Auth\ResetPasswordController@reset')->name('password.update');// 执行重设密码动作
+
 
 
 

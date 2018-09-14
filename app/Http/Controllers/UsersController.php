@@ -205,7 +205,7 @@ class UsersController extends Controller
     }
 
 
-    public function sendConfirmEmailTo($user)
+    public function sendConfirmEmailTo2($user)
     {
         $view   = 'emails.confirm';
         $data   = compact('user');
@@ -216,6 +216,19 @@ class UsersController extends Controller
 
         Mail::send($view, $data, function ($message) use ($from, $name, $to, $subjec) {
             $message->from($from, $name)->to($to)->subject($subjec);
+        });
+
+    }
+
+    public function sendConfirmEmailTo($user)
+    {
+        $view    = 'emails.confirm';
+        $data    = compact('user');
+        $to      = $user->email;
+        $subject = "感谢注册 Sample, 请完成激活";
+
+        Mail::send($view, $data, function ($message) use ($to, $subject) {
+            $message->to($to)->subject($subject);
         });
 
     }
