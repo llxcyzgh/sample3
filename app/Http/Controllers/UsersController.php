@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 //use Auth;
 use Illuminate\Support\Facades\Auth;
+//use Mail;
+use Illuminate\Support\Facades\Mail;
 
 //use Mockery\Exception;
 
@@ -17,14 +19,14 @@ class UsersController extends Controller
 //        $this->middleware('auth', [
 //            'except' => ['index', 'show', 'create', 'store'],
 //        ]);
-        $this->middleware('auth')->except(['index', 'show', 'create', 'store']);
+        $this->middleware('auth')->except(['index', 'show', 'create', 'store', 'confirmEmailToActivate', 'tt']);
         $this->middleware('guest')->only(['create']);
     }
 
     // 显示全体用户页面
     public function index()
     {
-        $users = User::paginate(10);// 默认 id 升序分页
+        $users = User::where('is_activated', true)->orderby('id', 'asc')->paginate(10);// 默认 id 升序分页
 //        $users = User::orderBy('created_at','desc')->paginate(10);
 //        $users = User::orderBy('created_at', 'asc')->paginate(10);
         return view('users.index', compact('users'));
@@ -66,9 +68,12 @@ class UsersController extends Controller
             'password' => bcrypt($request->password),
         ]);
 
-        Auth::login($user);
-        session()->flash('success', '注册成功');
-        return redirect()->route('users.show', [$user]);
+//        Auth::login($user);
+//        session()->flash('success', '注册成功');
+//        return redirect()->route('users.show', [$user]);
+        $this->sendConfirmEmailTo($user);
+        session()->flash('success', '激活邮件已经发送到您的注册邮箱上,请注意查收~');
+        return redirect()->route('home');
     }
 
     // 显示用户编辑页面
@@ -149,6 +154,70 @@ class UsersController extends Controller
         $user->delete();
         session()->flash('success', '成功删除用户~');
         return back();
+    }
+
+    // 接收 activation_token 来激活账号
+    public function confirmEmailToActivate2($token)
+    {
+//        var_dump($token);
+        // 先检查token的位数
+        if (strlen($token) != 30) {
+            session()->flash('danger', '信息不对,无法激活');
+        } else {
+            if ($user = User::where('activation_token', $token)->first()) {
+                $user->activation_token = null;
+                $user->is_activated     = true;
+                $user->save();
+
+                Auth::login($user);
+                session()->flash('success', '激活成功');
+                return redirect()->route('users.show', $user->id);
+            } else {
+                session()->flash('info', '此信息已过期');
+            }
+        }
+        return redirect()->route('home');
+    }
+
+    public function confirmEmailToActivate($token)
+    {
+//        var_dump($token);
+        // 先检查token的位数
+        if (strlen($token) != 30) {
+            // 防止恶意访问激活链接
+            session()->flash('danger', '信息不对,无法激活');
+            return redirect()->route('home');
+        } else {
+            try {
+                $user = User::where('activation_token', $token)->firstOrFail();
+            } catch (\Exception $e) {
+                return redirect('/');
+            }
+
+            $user->activation_token = null;
+            $user->is_activated     = true;
+            $user->save();
+
+            Auth::login($user);
+            session()->flash('success', '激活成功');
+            return redirect()->route('users.show', $user->id);
+        }
+    }
+
+
+    public function sendConfirmEmailTo($user)
+    {
+        $view   = 'emails.confirm';
+        $data   = compact('user');
+        $from   = 'admin@sample.com';
+        $name   = 'admin';
+        $to     = $user->email;
+        $subjec = "感谢注册 Sample, 请完成激活";
+
+        Mail::send($view, $data, function ($message) use ($from, $name, $to, $subjec) {
+            $message->from($from, $name)->to($to)->subject($subjec);
+        });
+
     }
 
 

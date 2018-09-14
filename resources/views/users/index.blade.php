@@ -17,7 +17,8 @@
                         </div>
                         <div class="col-md-6 user-name">
                             {{-- 用户名 --}}
-                            {{ $user->name }}
+                            {{--{{ $user->name }}--}}
+                            {{ 'name:'.$user->name.' -- id:'.$user->id.' -- is_activated:'.$user->is_activated }}
                             {{--{{ $user->name.'--'.$user->id }} -- {{ $user->id }}--}}
                             {{--{{ $user->name }} -- {{ $user->created_at.' -- '.$user->id }}--}}
                         </div>

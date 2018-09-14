@@ -77,6 +77,7 @@
                     </li>
                 @else
                     {{--用户未登陆时--}}
+                    <li><a href="{{ route('users.index') }}">用户列表</a></li>
                     <li><a href="{{ route('login') }}">登陆</a></li>
                     <li><a href="{{ route('users.create') }}">注册</a></li>
                 @endif

@@ -10,8 +10,8 @@ class SessionsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('guest',[
-            'only'=>['create'],
+        $this->middleware('guest', [
+            'only' => ['create'],
         ]);
     }
 
@@ -33,8 +33,14 @@ class SessionsController extends Controller
 
 //        if (Auth::attempt($credentials, $request->has('remember_me'))) {
         if (Auth::attempt($credentials, $request->remember_me)) {
-            session()->flash('success', '登陆成功');
-            return redirect()->intended(route('users.show', [Auth::user()]));
+            if (Auth::user()->is_activated) {
+                session()->flash('success', '登陆成功');
+                return redirect()->intended(route('users.show', [Auth::user()]));
+            } else {
+                Auth::logout();
+                session()->flash('warning', '账号未激活');
+                return back();
+            }
         } else {
             session()->flash('danger', '账号密码不匹配');
             return back();
