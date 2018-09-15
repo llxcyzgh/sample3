@@ -11,6 +11,9 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
+
+
 //Route::get('/tt','StaticPagesController@tt')->name('tt');
 Route::get('/tt/{token}','UsersController@tt')->name('tt');
 
@@ -33,6 +36,8 @@ Route::get('password/reset','Auth\ForgotPasswordController@showLinkRequestForm')
 Route::post('password/email','Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');// 执行发送要重设密码的邮箱动作
 Route::get('password/reset/{token}','Auth\ResetPasswordController@showResetForm')->name('password.reset');// 显示重设密码页面
 Route::post('password/reset','Auth\ResetPasswordController@reset')->name('password.update');// 执行重设密码动作
+
+Route::resource('statuses','StatusesController',['only'=>['store','destroy']]);
 
 
 

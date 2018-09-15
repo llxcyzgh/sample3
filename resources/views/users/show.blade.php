@@ -19,4 +19,19 @@
         </div>
     </div>
 
+    {{-- 个人微博部分 --}}
+    @if($feed_items->count()>0)
+        <div class="row">
+            <div class="col-md-offset-2 col-md-8">
+                {!! $feed_items->render() !!}
+                <ul class="list-group">
+                    @foreach($feed_items as $status)
+                        @include('statuses._status')
+                    @endforeach
+                </ul>
+                {!! $feed_items->render() !!}
+            </div>
+        </div>
+    @endif
+
 @endsection

@@ -38,10 +38,11 @@ class UsersController extends Controller
         return view('users.create');
     }
 
-    // 显示个人用户页面
+    // 显示个人用户页面(个人信息+个人微博)
     public function show(User $user)
     {
-        return view('users.show', compact('user'));
+        $feed_items = $user->feed()->paginate(10);
+        return view('users.show', compact('user', 'feed_items'));
     }
 
     // 执行用户注册动作, 注册成功返回个人用户界面,注册失败返回注册页面

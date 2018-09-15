@@ -35,7 +35,7 @@ class User extends Authenticatable
     {
         parent::boot();
 
-        static::creating(function ($user){
+        static::creating(function ($user) {
             $user->activation_token = str_random(30);
         });
     }
@@ -77,5 +77,18 @@ HEREDOC;
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPassword($token));
+    }
+
+    // 表明 Status 模型和本 User 模型的一对多关系
+    public function statuses()
+    {
+        return $this->hasMany(Status::class);
+    }
+
+    public function feed()
+    {
+        return $this->statuses()
+            ->orderBy('created_at', 'desc');
+//            ->paginate(10);
     }
 }
