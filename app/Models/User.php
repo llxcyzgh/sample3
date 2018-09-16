@@ -7,6 +7,7 @@ use function foo\func;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use function PHPSTORM_META\map;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -87,8 +88,49 @@ HEREDOC;
 
     public function feed()
     {
-        return $this->statuses()
-            ->orderBy('created_at', 'desc');
+        $users_ids = Auth::user()->followings->pluck('id')->toArray();
+        array_push($users_ids, Auth::user()->id);
+//        return $this->statuses()
+//            ->orderBy('created_at', 'desc');
 //            ->paginate(10);
+        return Status::whereIn('user_id', $users_ids)
+            ->with('user')
+            ->orderBy('created_at', 'desc');
+
     }
+
+    // 表明 User 模型和 User 模型 用户关注的 多对多关系
+    public function followers()//关注自己的   follower是追随者,粉丝
+    {
+        return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id');
+    }
+
+    public function followings()// 自己关注的
+    {
+        return $this->belongsToMany(User::class, 'followers', 'follower_id', 'user_id');
+    }
+
+    public function follow($user_ids)
+    {
+        if (!is_array($user_ids)) {
+            $user_ids = compact('user_ids');
+        }
+        $this->followings()->sync($user_ids, false);
+    }
+
+
+    public function unfollow($user_ids)
+    {
+        if (!is_array($user_ids)) {
+            $user_ids = compact('user_ids');
+        }
+        $this->followings()->detach($user_ids);
+    }
+
+    public function isFollowing($user_id)
+    {
+        return $this->followings->contains($user_id);
+    }
+
+
 }

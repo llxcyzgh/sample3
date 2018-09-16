@@ -234,5 +234,21 @@ class UsersController extends Controller
 
     }
 
+    public function followings(User $user)
+    {// 当前用户关注的人(明星们)
+        $current_user = $user;
+        $users = $user->followings()->paginate(10);
+        $title = '关注的人';
+        return view('users.show_follow',compact('users','title','current_user'));
+
+    }
+
+    public function followers(User $user)
+    {// 关注当前用户的人(粉丝们)
+        $users = $user->followers()->paginate(10);
+        $title = '粉丝';
+        return view('users.show_follow',compact('users','title'));
+    }
+
 
 }

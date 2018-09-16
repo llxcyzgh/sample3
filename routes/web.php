@@ -47,6 +47,13 @@ Route::resource('yxs','YxsController',['only'=>['index','store','destroy']]);
 //Route::post('yxs','YxsController@store')->name('yxs.store');
 //Route::get('yxs/{yx}','YxsController@destroy')->name('yxs.destroy');
 
+Route::get('users/{user}/followings','UsersController@followings')->name('users.followings');
+Route::get('users/{user}/followers','UsersController@followers')->name('users.followers');
+
+
+Route::post('users/followers/{user}','FollowersController@store')->name('followers.store');
+Route::delete('users/followers/{user}','FollowersController@destroy')->name('followers.destroy');
+
 
 
 
