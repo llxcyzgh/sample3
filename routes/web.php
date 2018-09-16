@@ -43,8 +43,9 @@ Route::resource('statuses','StatusesController',['only'=>['store','destroy']]);
 
 
 Route::resource('yxs','YxsController',['only'=>['index','store','destroy']]);
-//Route::resource('yxs','YxsController');
-//Route::get('yxs/index','YxsController@index');
+//Route::get('yxs','YxsController@index')->name('yxs');
+//Route::post('yxs','YxsController@store')->name('yxs.store');
+//Route::get('yxs/{yx}','YxsController@destroy')->name('yxs.destroy');
 
 
 

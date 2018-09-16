@@ -103,7 +103,7 @@
 
             <div class="form-group">
                 <label for="number">碎片数量: </label>
-                <input type="number" name="number" id="number" class="form-control" style="width: 50%">
+                <input type="number" name="number" id="number" placeholder="如果不确定请估计" class="form-control" style="width: 60%">
             </div>
 
             <div class="form-group">
@@ -133,15 +133,15 @@
                     <th>时间</th>
                     <th>操作</th>
                 </tr>
-                @foreach($list_item as $item)
+                @foreach($list_item as $yx)
                     <tr>
                         {{--<td>{{ $item->id }}</td>--}}
-                        <td>{{ $item->name }}</td>
-                        <td>{{ $item->number }}</td>
-                        <td>{{ $item->created_at }}</td>
-                        {{--<td>{{ $item->created_at->diffFoHumans() }}</td>--}}
+                        <td>{{ $yx->name }}</td>
+                        <td>{{ $yx->number }}</td>
+                        {{--<td>{{ $yxs->created_at }}</td>--}}
+                        <td>{{ $yx->created_at->diffForHumans() }}</td>
                         <td>
-                            <form action="{{ route('yxs.destroy',$item->id) }}" method="post">
+                            <form action="{{ route('yxs.destroy',$yx->id) }}" method="post">
                                 {{ csrf_field() }}
                                 {{ method_field('delete') }}
                                 <button type="submit" class="btn btn-sm btn-danger">删除</button>

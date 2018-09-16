@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Yxs;
+use App\Models\Yx;
 
 class YxsController extends Controller
 {
@@ -13,7 +13,8 @@ class YxsController extends Controller
 //        $list_item = Yxs::all()->orderBy('created_at','desc');
 //        $list_item = DB::table('yxs')->orderBy('created_at','desc')->get();
 //        $list_item = Yxs::orderBy('created_at', 'desc')->get();
-        $list_item = Yxs::where('name','!=','0')->orderBy('created_at','desc')->get();
+//        $list_item = Yx::where('name','!=','0')->orderBy('created_at','desc')->get();
+        $list_item = Yx::orderBy('created_at','desc')->get();
 //        var_dump($list_item[0]);
         return view('yxs.index', compact('list_item'));
     }
@@ -26,7 +27,7 @@ class YxsController extends Controller
             'number' => 'required|integer|min:0|max:100',
         ]);
 
-        Yxs::create([
+        Yx::create([
             'name'   => $request->name,
             'number' => $request->number,
         ]);
@@ -35,11 +36,18 @@ class YxsController extends Controller
         return back();
     }
 
-    public function destroy($item)
+//    public function destroy2($item)
+//    {
+////        var_dump($item);exit;
+//        $obj = Yxs::find($item);
+//        $obj->delete();
+//        session()->flash('success', '删除宝箱信息成功');
+//        return back();
+//    }
+    public function destroy(Yx $yx)
     {
-//        var_dump($item);exit;
-        $obj = Yxs::find($item);
-        $obj->delete();
+//        var_dump($yx);exit;
+        $yx->delete();
         session()->flash('success', '删除宝箱信息成功');
         return back();
     }
