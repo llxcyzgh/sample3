@@ -77,6 +77,7 @@
                 {{--<option value="xin">鑫</option>--}}
                 {{--</select>--}}
                 <select name="name" id="name" class="form-control">
+                    <option value="战队宝箱">战队宝箱</option>
                     <option value="不羁的风">不羁的风</option>
                     <option value="风继续吹">风继续吹</option>
                     <option value="拉拉姐">拉拉姐</option>

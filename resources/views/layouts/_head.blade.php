@@ -38,13 +38,14 @@
                 <li><a href="{{ route('home') }}">首页</a></li>
                 <li><a href="{{ route('about') }}">关于</a></li>
                 <li><a href="{{ route('help') }}">帮助</a></li>
+                <li><a href="{{ route('help') }}">英雄杀宝箱捐献情况</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">项目案例 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li class="dropdown-header">静态页面</li>
-                        <li><a href="#">简历</a></li>
-                        <li><a href="#">仿中兴首页</a></li>
+                        {{--<li><a href="#">简历</a></li>--}}
+                        {{--<li><a href="#">仿中兴首页</a></li>--}}
                         <li role="separator" class="divider"></li>
                         <li class="dropdown-header">动态网站</li>
                         <li><a href="#">Sample App</a></li>
